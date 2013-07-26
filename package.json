@@ -1,7 +1,7 @@
 {
   "name": "quevent",
   "description": "Pile up events and execute them later",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "author": "Jan Buschtöns <buschtoens@gmail.com>",
   "contributors": [
     {
