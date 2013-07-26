@@ -20,7 +20,7 @@ function quevent(emitter, event) {
   patch(emitter);
   
   if(event) // TODO: Maybe single mode
-    this.quevent.queue(event);
+    emitter.quevent.queue(event);
 
   return emitter;
 }
