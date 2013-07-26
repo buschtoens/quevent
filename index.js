@@ -18,7 +18,7 @@ module.exports = quevent;
  */
 function quevent(emitter, event) {
   patch(emitter);
-  
+
   if(event) // TODO: Maybe single mode
     emitter.quevent.queue(event);
 
@@ -32,7 +32,7 @@ function quevent(emitter, event) {
 function patch(emitter) {
   if(emitter.quevent) return;
 
-  emitter.quevent = { 
+  emitter.quevent = {
       addListener: addListener.bind(emitter)
     , _addListener: emitter.addListener.bind(emitter)
     , emit: emit.bind(emitter)
@@ -127,7 +127,7 @@ function queue(event, getInLine) {
 function dequeue(event) {
   if(arguments.length > 1)
     this.quevent.emit.apply(this, arguments);
-  
+
   if(event instanceof Array)
     event.forEach(remove, this.quevent._queueing);
   else if(typeof event === "string")
