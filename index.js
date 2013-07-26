@@ -82,7 +82,7 @@ function emit(event) {
         arguments: arguments
       , working: this.listeners(event).length
       };
-  arguments.splice(1, 0, done.bind(this, cache));
+  arguments.push(done.bind(this, cache));
   this.quevent._emit.apply(this, arguments);
 
   return this;
