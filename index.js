@@ -19,10 +19,8 @@ module.exports = quevent;
 function quevent(emitter, event) {
   patch(emitter);
   
-  if(event) { // event is specified, single mode
+  if(event) // TODO: Maybe single mode
     this.quevent.queue(event);
-    return this.quevent.emit.bind(this, event); // TODO: Is it even possible?
-  }
 
   return emitter;
 }
