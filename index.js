@@ -21,7 +21,7 @@ function quevent(emitter, event) {
   
   if(event) { // event is specified, single mode
     this.quevent.queue(event);
-    return this.quevent.emit.bind(this, event);
+    return this.quevent.emit.bind(this, event); // TODO: Is it even possible?
   }
 
   return emitter;
