@@ -100,14 +100,18 @@ function done(cache) {
 }
 
 /**
- * Start queueing an `event` or turn it off.
+ * Start queueing an `event` and optionally put all current listeners in the queue.
  * @param  {String} event
- * @param  {Boolean} off  optional
+ * @param  {Boolean} getInLine optional
  * @return {events.EventEmitter}
  */
-function queue(event, off) {
-  if(off === false)
-    return this.quevent.dequeue(event);
+function queue(event, getInLine) {
+  if(getInLine === true) {
+    this.listeners(event).forEach(function(listener) {
+      this.on("quevent:" + event, listener);
+    }, this);
+    this.removeAllListeners(event);
+  }
 
   if(!~this.quevent._queueing.indexOf(event))
     this.quevent._queueing.push(event);
