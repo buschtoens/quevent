@@ -37,12 +37,11 @@ function patch(emitter) {
   emitter.quevent = { 
       addListener: addListener.bind(emitter)
     , _addListener: emitter.addListener.bind(emitter)
-    , emit: emit.bind(this)
+    , emit: emit.bind(emitter)
     , _emit: emitter.emit.bind(emitter)
-    , next: next.bind(this)
-    , queue: queue.bind(this)
-    , dequeue: dequeue.bind(this)
-    , queueing: queueing.bind(this)
+    , queue: queue.bind(emitter)
+    , dequeue: dequeue.bind(emitter)
+    , queueing: queueing.bind(emitter)
     , _queueing: []
     , _cache: {}
     };
@@ -81,12 +80,11 @@ function emit(event) {
     return this;
   }
 
-  var cache = this.cache[uuid.v4()] = {
+  var cache = this.quevent._cache[uuid.v4()] = {
         arguments: arguments
       , working: this.listeners(event).length
       };
-  arguments.unshift(done.bind(this, cache));
-
+  arguments.splice(1, 0, done.bind(this, cache));
   this.quevent._emit.apply(this, arguments);
 
   return this;
@@ -98,8 +96,8 @@ function emit(event) {
  */
 function done(cache) {
   if(0 === --cache.working) {
-    arguments[0] = "quevent:" + arguments[0];
-    this.quevent._emit.apply(this, arguments);
+    cache.arguments[0] = "quevent:" + cache.arguments[0];
+    this.quevent._emit.apply(this, cache.arguments);
   }
 }
 
