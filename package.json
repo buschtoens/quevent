@@ -17,6 +17,6 @@
   "repository": "git://github.com/silvinci/quevent",
   "main": "index",
   "dependencies": {
-    "uuid": "*"
+    "uuid": ">=3.1.0"
   }
 }
